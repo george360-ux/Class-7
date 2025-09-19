@@ -1,0 +1,99 @@
+---
+title: "test file"
+format: 
+    html:
+      embed-resources: true
+editor: visual
+---
+
+## Class 7 notes - Sept 17.
+
+During this class I demonstrated producing a 
+document with Quarto that contains text and data visualizations. This is an example, so we simulated both text and data.
+
+We began by producing dummy text with 
+[Lorem Ipsum](https://loremipsum.io/).
+
+## Lorem ipsum dolor
+
+sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+To get ready for simulating data and making charts,
+we load packages and set parameters. In class, I set "echo" to false.  For for this explanation I'm showing the R chunk.
+
+```{r}
+#| label: setup
+#| echo: true
+#| warning: false
+#| messages: false
+
+library(tidyverse)
+library(esquisse)
+library(lorem)
+options(scipen=999, digits=3)
+
+```
+
+Our first chart was made with the esquisse package. 
+
+
+```{r}
+#| label: esquisse 
+
+## simulate some data
+treatment <- c(rep("A", 40) , rep("B", 40) , rep("C", 40) )
+
+value <- c( sample(2:5, 40 , replace=T) , sample(c(1:5,12:17), 40 , replace=T), sample(1:7, 40 , replace=T) )
+
+data1 <- data.frame(treatment,value)
+
+## esquisser(data, viewer = "browser")
+
+
+```
+
+Esquisse can help you learn the ggplot2 package by creating plots with a visual editor.
+
+
+Here is a page break, which only shows when the file is printed.
+
+<p style="page-break-after: always">
+
+</p>
+
+The final chart shows you the "dodge" settine for bar charts.
+
+## a bar chart with groups
+
+```{r}
+#| label: bar_chart
+
+## create a dataset
+specie <- c(rep("sorgho" , 3) , rep("poacee" , 3) , rep("banana" , 3) , rep("triticum" , 3) )
+
+condition <- rep(c("normal" , "stress" , "Nitrogen") , 4)
+
+value <- abs(rnorm(12 , 0 , 15))
+
+data2 <- data.frame(specie,condition,value)
+ 
+# Grouped
+
+ggplot(data2, aes(fill=condition, y=value, x=specie)) + 
+    geom_bar(position="dodge", stat="identity")
+
+```
+
+The schedule for the next two classes:
+
+Friday - Start a short assignment about Quarto.
+
+Monday in class - Turn in the Quarto assignment.  
+Start the next assignment.  
+
+Monday discussion - Base R quiz
+ 
+ 
+ 

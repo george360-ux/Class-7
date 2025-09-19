@@ -1,0 +1,35 @@
+---
+title: "In Class Activity"
+author: "George Acostalemus"
+format: html
+editor: visual
+---
+
+## Attitude dataset
+
+The attitude data set in R contains survey responses from 30 employee rating aspects of their environment and management. The data includes variables such as "rating", "complaints" "learning", "raises" and others.
+
+We will use ggplot2 to visualize the distribution of overall employee ratings and examines how the handling of complaints relates to learn, raises, and overall rating of their organization.
+
+```{r}
+# I got attitude data
+data <- attitude
+library(ggplot2)
+
+# Make a histogram for distributin of employee ratings.
+ggplot(data, aes(x = rating)) +
+  geom_histogram(binwidth = 5, fill = "#0073C2FF", color = "white") +
+  labs(title = "Distribution of Employee Ratings",
+       x = "Overall Rating",
+       y = "Count") +
+  theme_minimal()
+
+# Complaint vs. Privelage
+ggplot(data, aes(x = complaints, y = privileges)) +
+  geom_point(size = 3, color = "#EFC000FF") +
+  geom_smooth(method = "lm", se = TRUE, color = "darkblue") +
+  labs(title = "Handling of Complaints vs. Perceived Privileges",
+       x = "Handling of Complaints",
+       y = "Privileges") +
+  theme_minimal()
+```
